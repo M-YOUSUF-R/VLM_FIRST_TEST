@@ -26,12 +26,8 @@ for filename in os.listdir(IMAGE_FOLDER):
         base_name = os.path.splitext(filename)[0]
 
         # Keep trusted txt_0..txt_30 labels paired with img_0..img_30.
-        if base_name.startswith("img_"):
-            image_number = base_name.removeprefix("img_")
-            trusted_text_path = os.path.join(OUTPUT_FOLDER, f"txt_{image_number}")
-            if image_number.isdigit() and os.path.isfile(trusted_text_path):
-                print(f"Skipping trusted label: {filename}")
-                continue
+        if filename.lower().endswith('.txt') in os.listdir(OUTPUT_FOLDER):
+            continue
 
         out_name = f"{base_name}.txt"
         out_path = os.path.join(OUTPUT_FOLDER, out_name)
