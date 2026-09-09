@@ -18,20 +18,28 @@ driver.get(url)
 IMAGE_FOLDER = "./dataset_folder/data/images/"
 OUTPUT_FOLDER = "./dataset_folder/data/text/"
 
+
 # Ensure output directory exists
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+
+# Cache existing text files to avoid repeated directory scans
+existing_files = set(os.listdir(OUTPUT_FOLDER))
+
 
 for filename in os.listdir(IMAGE_FOLDER):
     if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.webp')):
         base_name = os.path.splitext(filename)[0]
 
-        # Keep trusted txt_0..txt_30 labels paired with img_0..img_30.
-        if filename.lower().endswith('.txt') in os.listdir(OUTPUT_FOLDER):
-            continue
-
         out_name = f"{base_name}.txt"
         out_path = os.path.join(OUTPUT_FOLDER, out_name)
         img_path = os.path.abspath(os.path.join(IMAGE_FOLDER, filename))
+
+        # Keep trusted txt_0..txt_30 labels paired with img_0..img_30.
+        if out_name in existing_files:
+            print(f"skipping the image {filename} as it's lable already exist")
+            continue
+
+
         
         print(f"Regenerating label for: {filename}...")
 
