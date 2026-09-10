@@ -1,4 +1,6 @@
 .venv
 dataset_folder
+Dataset
 .env
 *.jpeg
+*.txt
