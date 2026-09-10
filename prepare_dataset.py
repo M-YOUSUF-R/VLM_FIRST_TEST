@@ -41,7 +41,7 @@ for filename in os.listdir(IMAGE_FOLDER):
 
 
         
-        print(f"Regenerating label for: {filename}...")
+        print(f"Generating label for: {filename}...")
 
         # Re-query input element after refresh to avoid StaleElementReferenceException
         input_tag = wait.until(
